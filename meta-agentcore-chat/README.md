@@ -55,36 +55,77 @@ If you say "Hey Penelope" and stay silent for 6 seconds, the agent returns to li
 
 ## Memory Architecture — STM and LTM
 
-The agent uses two layers of memory. See: [AgentCore Memory](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html)
+The agent uses two layers of memory following best practices for conversational AI. See: [Add memory to your AgentCore agent](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html)
 
-### Short-Term Memory (STM)
+### Short-Term Memory (STM) — Conversation Context
 
-Conversation context within a session, managed by [AgentCore Runtime isolated sessions](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html). All messages in the same glasses connection share context. A new session starts each time the glasses reconnect.
+**What it is:** The context of the current conversation — what was said in THIS session.
+
+**How it works:** Managed by the [AgentCore Runtime `runtimeSessionId`](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html). All messages sharing the same `sessionId` maintain conversation context. When you ask a follow-up question, the agent knows what was discussed before.
+
+**Lifecycle:**
+- A new UUID is generated each time `AgentView` appears (glasses connect)
+- All voice interactions within that connection use the same `sessionId`
+- When the glasses disconnect, the session ends — context is cleared
+- Reconnecting starts a fresh conversation
 
 ```
-Glasses connect → new sessionId
+Glasses connect → sessionId = "ioschat-a1b2c3-550e8400-e29b-41d4..."
   "What movies are in Miami?" ──┐
   "What time is the second one?" ──┘  Same session, agent remembers
-Glasses disconnect → session ends → context cleared
+Glasses disconnect → session ends, context cleared
+Glasses reconnect → new UUID → fresh conversation
 ```
 
-### Long-Term Memory (LTM)
+**Where the value comes from:** Generated in `AgentView.swift` as `UUID().uuidString` at view initialization. Sent to the Lambda in the request body as `session_id`. The Lambda prefixes it: `ioschat-{userId[:8]}-{uuid}` for traceability.
 
-User facts and preferences that persist across all sessions, powered by [AgentCore Memory](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html), keyed by the user's Cognito identity.
+> See: [Use isolated sessions for agents](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)
+
+---
+
+### Long-Term Memory (LTM) — Persistent User Knowledge
+
+**What it is:** Facts and preferences about the user that persist across all sessions indefinitely.
+
+**How it works:** Powered by [AgentCore Memory Store](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html), keyed by the user's `actorId`. The agent automatically reads relevant memories at the start of each session and writes new ones at the end — no explicit user action required.
 
 | Memory Type | Namespace | What it stores |
 |-------------|-----------|----------------|
-| **Semantic** | `/users/{actorId}/facts` | Facts — "I live in Miami", "I work at AWS" |
-| **User Preference** | `/users/{actorId}/preferences` | Preferences — "prefers short answers" |
+| **Semantic** | `/users/{actorId}/facts` | Facts the user shares — "I live in Miami", "I work at AWS" |
+| **User Preference** | `/users/{actorId}/preferences` | Learned preferences — "prefers short answers", "speaks Spanish" |
 
-90-day retention. Survives disconnections, app restarts, and new conversations.
+**Retention:** 90 days. Survives disconnections, app restarts, and new conversations.
 
-### Session and Identity Parameters
+```
+Session 1: "I'm a software engineer in Miami"
+  → LTM stores: {fact: "software engineer", location: "Miami"}
 
-| Parameter | Value | Purpose |
-|-----------|-------|---------|
-| `actorId` | `ioschat:{cognitoSub}` | Stable per user — LTM identity |
-| `runtimeSessionId` | `ioschat-{userId[:8]}-{uuid}` | Unique per conversation — STM isolation |
+Session 2 (next day, new sessionId):
+  "What tech meetups are near me?"
+  → Agent reads LTM → knows user is in Miami → gives relevant answer
+```
+
+**Where the value comes from:** The `actorId` is derived from the Cognito user's `sub` — a UUID assigned by Cognito at account creation that never changes. The Lambda extracts it from the Cognito JWT claims: `claims.get("sub")`. It is prefixed as `ioschat:{cognitoSub}` to namespace it per app.
+
+To get your Cognito `sub`:
+```bash
+aws cognito-idp get-user \
+  --access-token <your-access-token> \
+  --region <your-region> \
+  --query 'UserAttributes[?Name==`sub`].Value' \
+  --output text
+```
+
+> See: [AgentCore Memory](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html) · [Cognito User Attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html)
+
+---
+
+### Session and Identity Parameters Summary
+
+| Parameter | Value | Where it comes from | Purpose |
+|-----------|-------|---------------------|---------|
+| `actorId` | `ioschat:{cognitoSub}` | Cognito JWT `sub` claim (stable UUID per user) | LTM identity — same across all sessions |
+| `runtimeSessionId` | `ioschat-{userId[:8]}-{uuid}` | UUID generated per `AgentView` instance in iOS | STM isolation — unique per conversation |
 
 ---
 
