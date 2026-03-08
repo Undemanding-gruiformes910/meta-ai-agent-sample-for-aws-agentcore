@@ -44,7 +44,7 @@ If you say "Hey Penelope" and stay silent for 6 seconds, the agent returns to li
 | `search_imdb` | Movie and TV show ratings, cast, director, plot from IMDb |
 | `search_github_repos` | Find GitHub repositories by topic, language, or keyword |
 | `search_github_code` | Find code examples on GitHub |
-| `save_to_obsidian` | Save ideas as structured Markdown notes to an S3-backed Obsidian vault |
+| `save_to_obsidian` | Save ideas as structured Markdown notes to an [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/)-backed Obsidian vault |
 | `calculator` | Math and unit conversions |
 | `current_time` | Current date and time |
 | `think` | Complex reasoning before answering |
@@ -131,11 +131,11 @@ aws cognito-idp get-user \
 
 ## Security
 
-- **Authentication**: [AWS Cognito](https://aws.amazon.com/cognito/) User Pool — email + password, verified via email code
+- **Authentication**: [Amazon Cognito](https://aws.amazon.com/cognito/) User Pool — email + password, verified via email code
 - **Tokens**: IdToken valid 24 hours, RefreshToken valid 10 years — session never expires in normal use
 - **Token storage**: iOS [Keychain](https://developer.apple.com/documentation/security/keychain_services)
-- **API secrets**: [AWS SSM Parameter Store SecureString](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) — never in CloudFormation or code
-- **API**: protected by Cognito Authorizer — no unauthenticated requests reach the backend
+- **API secrets**: [AWS Systems Manager (SSM) Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) SecureString — never in CloudFormation or code
+- **API**: protected by Amazon Cognito Authorizer — no unauthenticated requests reach the backend
 
 ---
 
@@ -161,7 +161,7 @@ python update_ios_config.py --skip-deploy -c openai_api_key="sk-..."
 
 | Component | Path | Description |
 |-----------|------|-------------|
-| **Backend** | `backend/` | CDK stack: API Gateway + Lambda + AgentCore Runtime + Cognito + DynamoDB + Memory |
+| **Backend** | `backend/` | [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/) stack: [Amazon API Gateway](https://aws.amazon.com/api-gateway/) + [AWS Lambda](https://aws.amazon.com/lambda/) + AgentCore Runtime + Amazon Cognito + [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) + Memory |
 | **iOS App** | `ios/` | SwiftUI app with Meta Glasses integration, Cognito auth, voice commands |
 | **Agent** | `backend/agent_files/chat_agent.py` | Strands agent with 10 tools, LTM, multi-model support |
 | **Memory** | `backend/memory/` | AgentCore Memory Store: semantic facts + user preferences (90-day retention) |
@@ -174,7 +174,7 @@ python update_ios_config.py --skip-deploy -c openai_api_key="sk-..."
 ### Prerequisites
 
 - AWS CLI configured with appropriate permissions
-- Python 3.10+ and AWS CDK installed
+- Python 3.10+ and [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/) installed
 - Xcode 15+ on a Mac
 - iPhone with iOS 17+ and USB cable
 - Meta Ray-Ban glasses paired with Meta AI app
@@ -315,7 +315,7 @@ The agent saves ideas directly to your Obsidian vault stored in S3. The agent's 
 python update_ios_config.py -c obsidian_bucket="your-bucket-name" ...
 ```
 
-**Cross-account bucket** — create an IAM role in the bucket's account with:
+**Cross-account bucket** — create an [AWS Identity and Access Management (IAM)](https://aws.amazon.com/iam/) role in the bucket's account with:
 
 *Trust policy* (use ExternalId to prevent [confused deputy attacks](https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html)):
 ```json
@@ -379,8 +379,8 @@ python update_ios_config.py ...
 | `MODEL_ID` | CDK context | `anthropic.claude-3-haiku-20240307-v1:0` | Bedrock model — ignored when Anthropic/OpenAI key is set |
 | `TAVILY_API_KEY` | SSM SecureString | *(required)* | Tavily web search |
 | `BEDROCK_AGENTCORE_MEMORY_ID` | AgentCore env var | Set by CDK | AgentCore Memory Store ID |
-| `OBSIDIAN_BUCKET` | CDK context | `your-s3-bucket-name` | S3 bucket for Obsidian vault |
-| `personal_account_role_arn` | CDK context | *(optional)* | Cross-account IAM role if bucket is in another account |
+| `OBSIDIAN_BUCKET` | CDK context | `your-s3-bucket-name` | Amazon S3 bucket for Obsidian vault |
+| `personal_account_role_arn` | CDK context | *(optional)* | Cross-account IAM role ARN if bucket is in another account |
 
 ---
 

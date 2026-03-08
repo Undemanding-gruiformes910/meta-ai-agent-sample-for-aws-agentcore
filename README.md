@@ -20,7 +20,7 @@ Say "Hey Penelope"
   → Agent responds through glasses speakers
 ```
 
-The agent has access to web search, IMDb ratings, GitHub repository search, notes (Obsidian), and math. Supports [Amazon Bedrock](https://aws.amazon.com/bedrock/), [Anthropic](https://www.anthropic.com/), and [OpenAI](https://openai.com/) as model providers. Users authenticate via [AWS Cognito](https://aws.amazon.com/cognito/) — the API is fully protected, no API keys stored on the device.
+The agent has access to web search, IMDb ratings, GitHub repository search, notes (Obsidian), and math. Supports [Amazon Bedrock](https://aws.amazon.com/bedrock/), [Anthropic](https://www.anthropic.com/), and [OpenAI](https://openai.com/) as model providers. Users authenticate via [Amazon Cognito](https://aws.amazon.com/cognito/) — the API is fully protected, no API keys stored on the device.
 
 ---
 
@@ -45,7 +45,7 @@ The agent has access to web search, IMDb ratings, GitHub repository search, note
 
 The agent uses two layers of memory following STM/LTM principles:
 
-**Short-Term Memory (STM)** — conversation context within a session, powered by [AgentCore Runtime sessions](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html). A new session starts each time the glasses connect; all messages in that connection share context.
+**Short-Term Memory (STM)** — conversation context within a session, powered by [Amazon Bedrock AgentCore Runtime isolated sessions](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html). A new session starts each time the glasses connect; all messages in that connection share context.
 
 **Long-Term Memory (LTM)** — user facts and preferences that persist across all sessions, powered by [AgentCore Memory](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html). The agent learns your name, location, and preferences over time without any explicit action from you.
 
@@ -53,11 +53,11 @@ The agent uses two layers of memory following STM/LTM principles:
 
 ## Security
 
-- **Authentication**: [AWS Cognito](https://aws.amazon.com/cognito/) User Pool — users sign up with email, verify with code, and authenticate via JWT tokens
+- **Authentication**: [Amazon Cognito](https://aws.amazon.com/cognito/) User Pool — users sign up with email, verify with code, and authenticate via JWT tokens
 - **Token storage**: iOS [Keychain](https://developer.apple.com/documentation/security/keychain_services) — never UserDefaults
-- **API secrets**: [AWS SSM Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) SecureString — never in CloudFormation or code
-- **Session**: RefreshToken valid for 10 years — session persists across app restarts and phone locks. Sign Out button available on the glasses connection screen.
-- **API**: Protected by Cognito authorizer — no request reaches the backend without a valid JWT
+- **API secrets**: [AWS Systems Manager (SSM) Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) SecureString — never in CloudFormation or code
+- **Session**: RefreshToken valid for 10 years — session persists across app restarts and phone locks
+- **API**: Protected by Amazon Cognito authorizer — no request reaches the backend without a valid JWT
 
 ---
 
@@ -65,7 +65,7 @@ The agent uses two layers of memory following STM/LTM principles:
 
 | Folder | Description |
 |--------|-------------|
-| `meta-agentcore-chat/backend/` | AWS CDK stack — API Gateway, Lambda, AgentCore Runtime, Cognito, DynamoDB, Memory |
+| `meta-agentcore-chat/backend/` | [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/) stack — [Amazon API Gateway](https://aws.amazon.com/api-gateway/), [AWS Lambda](https://aws.amazon.com/lambda/), AgentCore Runtime, Amazon Cognito, [Amazon DynamoDB](https://aws.amazon.com/dynamodb/), Memory |
 | `meta-agentcore-chat/ios/` | SwiftUI iOS app — voice commands, wake word, Cognito auth |
 | `meta-agentcore-chat/backend/agent_files/` | Strands agent with tools |
 | `meta-agentcore-chat/update_ios_config.py` | One-command deploy and iOS config update |
@@ -96,7 +96,7 @@ python meta-agentcore-chat/update_ios_config.py --skip-deploy -c openai_api_key=
 # Back to Bedrock: remove the key from AWS SSM Parameter Store console
 ```
 
-Secrets are stored as [SSM SecureString](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) — never in CloudFormation or code.
+Secrets are stored as [SSM Parameter Store SecureString](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) — never in CloudFormation or code.
 
 ---
 
