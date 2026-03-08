@@ -485,6 +485,14 @@ curl -X POST "<ApiUrl>/chat" \
 
 ---
 
+## ⭐ Did this help you?
+
+If this project helped you build something awesome, please consider starring the repo — it helps others discover it too!
+
+[![Star](https://img.shields.io/github/stars/elizabethfuentes12/ray-ban-ai-agent-bedrock?style=social)](https://github.com/elizabethfuentes12/ray-ban-ai-agent-bedrock)
+
+---
+
 ## References
 
 - [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el)

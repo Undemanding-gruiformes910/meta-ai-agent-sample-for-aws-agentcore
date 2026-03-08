@@ -169,6 +169,14 @@ Full setup guide: [meta-agentcore-chat/README.md](meta-agentcore-chat/README.md)
 
 ---
 
+## ⭐ Did this help you?
+
+If this project helped you build something awesome, please consider starring the repo — it helps others discover it too!
+
+[![Star](https://img.shields.io/github/stars/elizabethfuentes12/ray-ban-ai-agent-bedrock?style=social)](https://github.com/elizabethfuentes12/ray-ban-ai-agent-bedrock)
+
+---
+
 ## Contributing
 
 Contributions are welcome! See [CONTRIBUTING](CONTRIBUTING.md) for more information.
