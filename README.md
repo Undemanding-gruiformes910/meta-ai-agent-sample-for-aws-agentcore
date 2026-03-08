@@ -80,10 +80,10 @@ This app uses [Strands Agents](https://strandsagents.com), which makes it simple
 
 | Folder | Description |
 |--------|-------------|
-| `meta-agentcore-chat/backend/` | [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) stack — [Amazon API Gateway](https://aws.amazon.com/api-gateway/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el), [AWS Lambda](https://aws.amazon.com/lambda/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el), AgentCore Runtime, Amazon Cognito, Memory |
-| `meta-agentcore-chat/ios/` | SwiftUI iOS app — voice commands, wake word, Cognito auth |
-| `meta-agentcore-chat/backend/agent_files/` | Strands agent with tools |
-| `meta-agentcore-chat/update_ios_config.py` | One-command deploy and iOS config update |
+| `ray-ban-voice-agent-bedrock/backend/` | [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) stack — [Amazon API Gateway](https://aws.amazon.com/api-gateway/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el), [AWS Lambda](https://aws.amazon.com/lambda/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el), AgentCore Runtime, Amazon Cognito, Memory |
+| `ray-ban-voice-agent-bedrock/ios/` | SwiftUI iOS app — voice commands, wake word, Cognito auth |
+| `ray-ban-voice-agent-bedrock/backend/agent_files/` | Strands agent with tools |
+| `ray-ban-voice-agent-bedrock/update_ios_config.py` | One-command deploy and iOS config update |
 
 ---
 
@@ -100,13 +100,13 @@ The agent supports three providers. Priority: **Anthropic → OpenAI → Amazon 
 To switch providers without redeploying:
 
 ```bash
-source meta-agentcore-chat/backend/.venv/bin/activate
+source ray-ban-voice-agent-bedrock/backend/.venv/bin/activate
 
 # Use Anthropic
-python meta-agentcore-chat/update_ios_config.py --skip-deploy -c anthropic_api_key="sk-ant-..."
+python ray-ban-voice-agent-bedrock/update_ios_config.py --skip-deploy -c anthropic_api_key="sk-ant-..."
 
 # Use OpenAI
-python meta-agentcore-chat/update_ios_config.py --skip-deploy -c openai_api_key="sk-..."
+python ray-ban-voice-agent-bedrock/update_ios_config.py --skip-deploy -c openai_api_key="sk-..."
 
 # Back to Bedrock: remove the key from AWS SSM Parameter Store console
 ```
@@ -122,7 +122,7 @@ The setup requires two deployments:
 **First deploy** — without iOS-specific values (get the outputs first):
 
 ```bash
-cd meta-agentcore-chat/backend
+cd ray-ban-voice-agent-bedrock/backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cd ..
@@ -149,7 +149,7 @@ python update_ios_config.py \
 
 This updates the Lambda with Universal Link config and refreshes `AppConfig.swift` with the Cognito values needed by the iOS app.
 
-Full setup guide: [meta-agentcore-chat/README.md](meta-agentcore-chat/README.md)
+Full setup guide: [ray-ban-voice-agent-bedrock/README.md](ray-ban-voice-agent-bedrock/README.md)
 
 ---
 
