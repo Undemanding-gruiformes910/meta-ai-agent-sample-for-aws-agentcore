@@ -21,64 +21,31 @@ Conversational AI assistant powered by [Amazon Bedrock AgentCore](https://docs.a
 
 ```mermaid
 flowchart TD
-    subgraph Device["📱 Device Layer"]
-        RB["🕶️ Meta Ray-Ban Glasses\nBluetooth via Meta AI app"]
-        KB["⌨️ iOS Keyboard\nDirect input"]
-    end
+    A("🕶️ Meta Ray-Ban Glasses\n──────────────────\nBluetooth via Meta AI app")
+    B("📱 iOS App — SwiftUI\n──────────────────\nCognito JWT · Wake word · TTS")
+    C("🔐 API Gateway\n──────────────────\nCognito Authorizer")
+    D("⚡ Lambda\n──────────────────\nchat_handler.py")
+    E("🤖 AgentCore Runtime\n──────────────────\nStrands Agent · chat_agent.py")
+    F("🧠 AgentCore Memory\n──────────────────\nSTM — session context\nLTM — user facts & prefs")
+    G("🛠️ Tools\n──────────────────\nWeb · IMDb · GitHub\nObsidian · Calculator · Browser")
+    H("🗄️ DynamoDB\n──────────────────\nmessage history")
 
-    subgraph iOS["🍎 iOS App — SwiftUI"]
-        APP["MetaChatAgent\nCognito JWT auth"]
-    end
+    A -->|"wake word + voice"| B
+    B -->|"HTTPS + JWT"| C
+    C -->|"authorized"| D
+    D --> E
+    D --> H
+    E --> F
+    E --> G
 
-    subgraph AWS["☁️ AWS Backend"]
-        APIGW["🔐 API Gateway\nCognito Authorizer"]
-        LMB["⚡ Lambda\nchat_handler.py"]
-
-        subgraph AgentCore["🤖 Amazon Bedrock AgentCore"]
-            RT["AgentCore Runtime\nMetaChatAgent"]
-            AGENT["chat_agent.py\nStrands Agent"]
-        end
-
-        subgraph Storage["🗄️ Storage"]
-            DB["Amazon DynamoDB\nmessage history"]
-        end
-
-        subgraph Memory["🧠 AgentCore Memory"]
-            STM["STM\nSession context"]
-            LTM["LTM\nUser facts & preferences"]
-        end
-
-        subgraph Tools["🛠️ 10 Tools"]
-            T1["🔍 tavily — web search"]
-            T2["🎬 search_imdb"]
-            T3["🐙 search_github"]
-            T4["📝 save_to_obsidian"]
-            T5["🧮 calculator · clock · think\nhttp_request · browser"]
-        end
-    end
-
-    RB -->|"🎤 wake word + voice"| APP
-    KB -->|"✍️ typed input"| APP
-    APP -->|"HTTPS + JWT"| APIGW
-    APIGW -->|"authorized request"| LMB
-    LMB --> RT
-    LMB --> DB
-    RT --> AGENT
-    AGENT --> STM
-    AGENT --> LTM
-    AGENT --> T1
-    AGENT --> T2
-    AGENT --> T3
-    AGENT --> T4
-    AGENT --> T5
-
-    style Device fill:#1a1a2e,stroke:#4a4a8a,color:#fff
-    style iOS fill:#1a2a3a,stroke:#4a8aaa,color:#fff
-    style AWS fill:#1a2a1a,stroke:#4a8a4a,color:#fff
-    style AgentCore fill:#2a1a2a,stroke:#8a4a8a,color:#fff
-    style Storage fill:#2a2a1a,stroke:#8a8a4a,color:#fff
-    style Memory fill:#1a2a2a,stroke:#4a8a8a,color:#fff
-    style Tools fill:#2a1a1a,stroke:#8a4a4a,color:#fff
+    style A fill:#232f3e,stroke:#ff9900,color:#fff
+    style B fill:#1a3a5c,stroke:#4a9edc,color:#fff
+    style C fill:#232f3e,stroke:#ff9900,color:#fff
+    style D fill:#232f3e,stroke:#ff9900,color:#fff
+    style E fill:#3d1a5c,stroke:#9b59b6,color:#fff
+    style F fill:#1a4a3a,stroke:#2ecc71,color:#fff
+    style G fill:#4a2a1a,stroke:#e67e22,color:#fff
+    style H fill:#232f3e,stroke:#ff9900,color:#fff
 ```
 
 ---
