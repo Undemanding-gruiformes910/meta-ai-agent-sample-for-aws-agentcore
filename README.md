@@ -153,6 +153,18 @@ Full setup guide: [ray-ban-voice-agent-bedrock/README.md](ray-ban-voice-agent-be
 
 ---
 
+## Extend with OpenClaw
+
+[OpenClaw](https://github.com/openclaw-dev/openclaw) is one of the most popular open-source AI agents right now — it runs autonomously, connects to the messaging apps you already use (WhatsApp, Telegram, Slack, Signal, Discord), and comes with 56+ built-in skills for web browsing, file management, email, calendar, shell commands, and more.
+
+Since this project runs on **Amazon Bedrock AgentCore**, you can host your own OpenClaw instance on the same infrastructure. Use this AWS sample repo to deploy OpenClaw on AgentCore Runtime — each user gets their own isolated container with persistent workspace storage:
+
+👉 **[sample-host-openclaw-on-amazon-bedrock-agentcore](https://github.com/aws-samples/sample-host-openclaw-on-amazon-bedrock-agentcore)**
+
+This gives your Ray-Ban glasses access to the full OpenClaw skill ecosystem on top of the tools already built into this agent.
+
+---
+
 ## References
 
 - [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el)
