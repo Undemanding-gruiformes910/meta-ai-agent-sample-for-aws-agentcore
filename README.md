@@ -7,6 +7,14 @@ Hands-free AI assistant for [Meta Ray-Ban smart glasses](https://www.meta.com/sm
 [![Strands Agents](https://img.shields.io/badge/Strands-Agents-blue.svg?style=flat-square)](https://strandsagents.com)
 [![AgentCore](https://img.shields.io/badge/Amazon-Bedrock_AgentCore-orange.svg?style=flat-square&logo=amazon-aws)](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html)
 
+<p align="center">
+  <img src="ray-ban-voice-agent-bedrock/backend/imagen/ray-ban-ai-agent-ios-app-icon.jpeg" alt="Ray-Ban AI Agent iOS app icon" width="110"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="ray-ban-voice-agent-bedrock/backend/imagen/ray-ban-voice-agent-wake-word-imdb-query.jpeg" alt="Ray-Ban voice agent listening for wake word Hey Penelope and answering an IMDb query hands-free" width="200"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="ray-ban-voice-agent-bedrock/backend/imagen/ray-ban-ai-agent-cognito-signin-ios.jpeg" alt="Ray-Ban AI agent iOS sign-in screen powered by Amazon Cognito" width="200"/>
+</p>
+
 ---
 
 ## What This Does
