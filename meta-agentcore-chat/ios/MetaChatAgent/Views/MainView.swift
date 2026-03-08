@@ -10,14 +10,13 @@ struct MainView: View {
         if viewModel.registrationState == .registered {
             AgentView(wearables: wearables, wearablesVM: viewModel, auth: auth)
         } else {
-            HomeView(viewModel: viewModel, auth: auth)
+            HomeView(viewModel: viewModel)
         }
     }
 }
 
 struct HomeView: View {
     @ObservedObject var viewModel: WearablesViewModel
-    @ObservedObject var auth: CognitoAuthService
 
     var body: some View {
         VStack(spacing: 24) {
@@ -39,9 +38,6 @@ struct HomeView: View {
             }
             .disabled(viewModel.registrationState == .registering)
             .padding(.horizontal, 40)
-
-            Button("Sign Out") { auth.signOut() }
-                .font(.footnote).foregroundColor(.secondary)
         }
     }
 }
