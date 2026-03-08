@@ -60,6 +60,8 @@ The agent uses two layers of memory following STM/LTM principles:
 
 This app uses [Strands Agents](https://strandsagents.com), which makes it simple to extend the agent with new capabilities — just add a `@tool` function in Python. It comes with 10 built-in tools:
 
+> 📓 **Obsidian integration note:** This demo saves ideas directly to an [Obsidian](https://obsidian.md) vault stored in Amazon S3. The vault is synced to the Obsidian desktop/mobile app using the [Remotely Save](https://github.com/remotely-save/remotely-save) community plugin, which supports Amazon S3 as a backend. The agent writes structured Markdown notes to S3 — when you open Obsidian, the new notes appear automatically.
+
 | Tool | What it does |
 |------|-------------|
 | `tavily` | Web search — current events, news, facts, any internet query |
