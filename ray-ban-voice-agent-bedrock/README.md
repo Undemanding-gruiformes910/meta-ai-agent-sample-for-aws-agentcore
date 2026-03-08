@@ -21,14 +21,14 @@ Conversational AI assistant powered by [Amazon Bedrock AgentCore](https://docs.a
 
 ```mermaid
 flowchart TD
-    A("🕶️ Meta Ray-Ban Glasses\n──────────────────\nBluetooth via Meta AI app")
-    B("📱 iOS App — SwiftUI\n──────────────────\nCognito JWT · Wake word · TTS")
-    C("🔐 API Gateway\n──────────────────\nCognito Authorizer")
-    D("⚡ Lambda\n──────────────────\nchat_handler.py")
-    E("🤖 AgentCore Runtime\n──────────────────\nStrands Agent · chat_agent.py")
-    F("🧠 AgentCore Memory\n──────────────────\nSTM — session context\nLTM — user facts & prefs")
-    G("🛠️ Tools\n──────────────────\nWeb · IMDb · GitHub\nObsidian · Calculator · Browser")
-    H("🗄️ DynamoDB\n──────────────────\nmessage history")
+    A("🕶️ Meta Ray-Ban Glasses\nBluetooth via Meta AI app")
+    B("📱 iOS App — SwiftUI\nCognito JWT · Wake word · TTS")
+    C("🔐 API Gateway\nCognito Authorizer")
+    D("⚡ Lambda\nchat_handler.py")
+    E("🤖 AgentCore Runtime\nStrands Agent · chat_agent.py")
+    F("🧠 AgentCore Memory\nSTM — session context · LTM — user facts & prefs")
+    G("🛠️ Tools\nWeb · IMDb · GitHub · Obsidian · Calculator · Browser")
+    H("🗄️ DynamoDB\nmessage history")
 
     A -->|"wake word + voice"| B
     B -->|"HTTPS + JWT"| C
