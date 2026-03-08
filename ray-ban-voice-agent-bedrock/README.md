@@ -30,13 +30,11 @@ flowchart TD
     E("🤖 AgentCore Runtime<br/>Strands Agent · chat_agent.py")
     F("🧠 AgentCore Memory<br/>STM — session context · LTM — user facts & prefs")
     G("🛠️ Tools<br/>Web · IMDb · GitHub · Obsidian · Calculator · Browser")
-    H("🗄️ DynamoDB<br/>message history")
 
     A -->|"wake word + voice"| B
     B -->|"HTTPS + JWT"| C
     C -->|"authorized"| D
     D --> E
-    D --> H
     E --> F
     E --> G
 
@@ -47,7 +45,6 @@ flowchart TD
     style E fill:#3d1a5c,stroke:#9b59b6,color:#fff
     style F fill:#1a4a3a,stroke:#2ecc71,color:#fff
     style G fill:#4a2a1a,stroke:#e67e22,color:#fff
-    style H fill:#232f3e,stroke:#ff9900,color:#fff
 ```
 
 ---
@@ -204,7 +201,7 @@ python update_ios_config.py --skip-deploy -c openai_api_key="sk-..."
 
 | Component | Path | Description |
 |-----------|------|-------------|
-| **Backend** | `backend/` | [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) stack: [Amazon API Gateway](https://aws.amazon.com/api-gateway/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) + [AWS Lambda](https://aws.amazon.com/lambda/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) + AgentCore Runtime + Amazon Cognito + [Amazon DynamoDB](https://aws.amazon.com/dynamodb/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) + Memory |
+| **Backend** | `backend/` | [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) stack: [Amazon API Gateway](https://aws.amazon.com/api-gateway/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) + [AWS Lambda](https://aws.amazon.com/lambda/?trk=87c4c426-cddf-4799-a299-273337552ad8&sc_channel=el) + AgentCore Runtime + Amazon Cognito + Memory |
 | **iOS App** | `ios/` | SwiftUI app with Meta Glasses integration, Cognito auth, voice commands |
 | **Agent** | `backend/agent_files/chat_agent.py` | Strands agent with 10 tools, LTM, multi-model support |
 | **Memory** | `backend/memory/` | AgentCore Memory Store: semantic facts + user preferences (90-day retention) |
