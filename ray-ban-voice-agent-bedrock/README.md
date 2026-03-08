@@ -21,31 +21,9 @@ Conversational AI assistant powered by [Amazon Bedrock AgentCore](https://docs.a
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    A("🕶️ Meta Ray-Ban Glasses<br/>Bluetooth via Meta AI app")
-    B("📱 iOS App — SwiftUI<br/>Cognito JWT · Wake word · TTS")
-    C("🔐 API Gateway<br/>Cognito Authorizer")
-    D("⚡ Lambda<br/>chat_handler.py")
-    E("🤖 AgentCore Runtime<br/>Strands Agent · chat_agent.py")
-    F("🧠 AgentCore Memory<br/>STM — session context · LTM — user facts & prefs")
-    G("🛠️ Tools<br/>Web · IMDb · GitHub · Obsidian · Calculator · Browser")
-
-    A -->|"wake word + voice"| B
-    B -->|"HTTPS + JWT"| C
-    C -->|"authorized"| D
-    D --> E
-    E --> F
-    E --> G
-
-    style A fill:#232f3e,stroke:#ff9900,color:#fff
-    style B fill:#1a3a5c,stroke:#4a9edc,color:#fff
-    style C fill:#232f3e,stroke:#ff9900,color:#fff
-    style D fill:#232f3e,stroke:#ff9900,color:#fff
-    style E fill:#3d1a5c,stroke:#9b59b6,color:#fff
-    style F fill:#1a4a3a,stroke:#2ecc71,color:#fff
-    style G fill:#4a2a1a,stroke:#e67e22,color:#fff
-```
+<p align="center">
+  <img src="backend/imagen/Hands-Free-AI-Voice-Agent-for-Meta-Ray-Ban-Glasses-Amazon-Bedrock-AgentCore.png" alt="Hands-Free AI Voice Agent for Meta Ray-Ban Glasses — Amazon Bedrock AgentCore architecture diagram" width="800"/>
+</p>
 
 ---
 

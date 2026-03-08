@@ -17,6 +17,10 @@ Hands-free AI assistant for [Meta Ray-Ban smart glasses](https://www.meta.com/sm
   <img src="ray-ban-voice-agent-bedrock/backend/imagen/ray-ban-ai-agent-cognito-signin-ios.jpeg" alt="Ray-Ban AI agent iOS sign-in screen powered by Amazon Cognito" width="200"/>
 </p>
 
+<p align="center">
+  <img src="ray-ban-voice-agent-bedrock/backend/imagen/Hands-Free-AI-Voice-Agent-for-Meta-Ray-Ban-Glasses-Amazon-Bedrock-AgentCore.png" alt="Hands-Free AI Voice Agent for Meta Ray-Ban Glasses — Amazon Bedrock AgentCore architecture diagram" width="800"/>
+</p>
+
 ---
 
 ## What This Does
